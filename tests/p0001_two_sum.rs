@@ -18,7 +18,6 @@ use std::collections::HashMap;
 
 fn two_sum_naive(nums: Vec<i32>, target: i32) -> Vec<i32> {
     if nums.len() < 2 { panic!("'nums' must have at least two items.") };
-
     for i in 0..nums.len()-1 {
         for j in i+1..nums.len() {
             if nums[i] + nums[j] == target {

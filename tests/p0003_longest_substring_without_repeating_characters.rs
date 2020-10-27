@@ -34,17 +34,20 @@ fn length_of_longest_substring(s: String) -> i32 {
     let mut l: usize = 0;
     let mut r: usize = 0;
     let mut longest: usize = 0;
-    let mut used: HashSet<char> = HashSet::new();
+
+    // We're dealing with the lowercase English alphabet so we can allocate
+    // our set to the max size we'll ever need.
+    let mut seen: HashSet<char> = HashSet::with_capacity(26);
 
     while r < chars.len() {
-        if used.contains(&chars[r]) {
-            used.remove(&chars[l]);
-            l = l + 1;
+        if seen.contains(&chars[r]) {
+            seen.remove(&chars[l]);
+            l += 1;
         }
         else {
             longest = max(longest, r - l);
-            used.insert(chars[r]);
-            r = r + 1;
+            seen.insert(chars[r]);
+            r += 1;
         }
     }
 
@@ -54,6 +57,10 @@ fn length_of_longest_substring(s: String) -> i32 {
 #[test]
 fn length_of_longest_substring_test() {
     assert_eq!(length_of_longest_substring("".to_string()), 0);
+    assert_eq!(length_of_longest_substring("abcdabcbd".to_string()), 4);
+    assert_eq!(length_of_longest_substring("aaaaaa".to_string()), 1);
+    assert_eq!(length_of_longest_substring("tidddosa".to_string()), 4);
+    assert_eq!(length_of_longest_substring("au".to_string()), 2);
     assert_eq!(length_of_longest_substring("abcabc".to_string()), 3);
     assert_eq!(length_of_longest_substring("bbbbb".to_string()), 1);
     assert_eq!(length_of_longest_substring("pwwkew".to_string()), 3);
