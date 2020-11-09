@@ -32,7 +32,7 @@ impl ListNode {
   
 fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
 
-    fn add_two_numbers_rec(list1: Option<Box<ListNode>>, list2: Option<Box<ListNode>>, carry: i32) -> Option<Box<ListNode>> {
+    fn go(list1: Option<Box<ListNode>>, list2: Option<Box<ListNode>>, carry: i32) -> Option<Box<ListNode>> {
 
         fn add (v1: i32, v2: i32, carry: i32) -> (i32, i32) {
             let sum = v1 + v2 + carry;
@@ -41,7 +41,7 @@ fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Opti
 
         fn next (val: i32, carry: i32, n1: Option<Box<ListNode>>, n2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
             let mut node = ListNode::new(val);
-            node.next = add_two_numbers_rec(n1, n2, carry);
+            node.next = go(n1, n2, carry);
             return Some(Box::new(node))
         }
 
@@ -67,7 +67,7 @@ fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Opti
         }
     }
 
-    add_two_numbers_rec(l1, l2, 0)
+    go(l1, l2, 0)
 }
 
 #[test]

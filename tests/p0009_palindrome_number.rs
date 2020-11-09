@@ -29,14 +29,14 @@ Coud you solve it without converting the integer to a string?
 fn is_palindrome(x: i32) -> bool {
     if x < 0 || (x % 10 == 0 && x != 0) { return false; }
 
-    fn is_palindrome_rec(x: i32, state: i32) -> bool {
+    fn go(x: i32, state: i32) -> bool {
         match x {
             x if x <= state => x == state || x == state/10,
-            x => is_palindrome_rec(x/10, state*10 + x%10)
+            x => go(x/10, state*10 + x%10)
         }
     }
 
-    is_palindrome_rec(x, 0)
+    go(x, 0)
 }
 
 #[test]
