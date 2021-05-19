@@ -22,12 +22,35 @@ Note:
 All given inputs are in lowercase letters a-z.
 */
 
-fn longest_common_prefix(_strs: Vec<String>) -> String {
-    return "fl".to_string();
+fn longest_common_prefix(strs: Vec<String>) -> String {
+
+    let mut i = 0;
+
+    let mut prefix: String = String::from("");
+
+    let chars: Vec<Vec<char>> = strs.iter().map(|x| x.chars().collect()).collect();
+
+    loop {
+        let mut current = None;
+
+        for cs in chars.iter() {
+            if i >= cs.len() { return prefix.to_string(); }
+
+            let c = cs[i];
+
+            match current {
+                None => current = Some(c),
+                Some(v) if v != c => return prefix.to_string(),
+                _ => ()
+            }
+        }
+        prefix.push(current.unwrap());
+        i = i + 1;
+    }
 }
 
 #[test]
 fn longest_common_prefix_test() {
     assert_eq!(longest_common_prefix(vec!["flower".to_string(),"flow".to_string(),"flight".to_string()]), "fl".to_string());
-    // assert_eq!(longest_common_prefix(vec!["dog".to_string(),"racecar".to_string(),"car".to_string()]), "".to_string());
+    assert_eq!(longest_common_prefix(vec!["dog".to_string(),"racecar".to_string(),"car".to_string()]), "".to_string());
 }

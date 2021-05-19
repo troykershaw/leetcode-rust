@@ -2,13 +2,13 @@
 
 To run all tests:
 
-```rust
+```sh
 cargo test
 ```
 
 To run a specific test, use `cargo test --test FILENAME`, eg:
 
-```rust
+```sh
 cargo test --test p0001_two_sum
 ```
 
